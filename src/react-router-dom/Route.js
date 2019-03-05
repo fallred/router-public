@@ -14,10 +14,23 @@ export default class Route extends Component {
                     // pathname是location中的
                     let pathname = state.location.pathname;
                     // 根据path实现一个正则，通过正则匹配
-                    let reg = pathToRegExp(path, [], {end: exact});
+                    let keys = [];
+                    let reg = pathToRegExp(path, keys, {end: exact});
+                    keys = keys.map(item=>item.name);//[id]
                     let result = pathname.match(reg);
+                    let [url, ...values] = result || [];//[1]
+                    let props = {
+                        location: state.location,
+                        history: state.history,
+                        match: {
+                            params: keys.reduce((obj, current, index) => {
+                                obj[current] = values[index];
+                                return obj;
+                            }, {})
+                        }
+                    };
                     if (result) {
-                        return <Component></Component>
+                        return <Component {...props}></Component>
                     }
                     // console.log(state);
                     return null;
