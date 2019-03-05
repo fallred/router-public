@@ -4,9 +4,20 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+export default class App extends Component {
+    constructor() {
+        super();
+    }
+    render(){
+        return (
+            <Router>
+                <div>
+                    <Route path="/home" component={Home}></Route>
+                    <Route path="/profile" component={Profile}></Route>
+                    <Route path="/user" component={User}></Route>
+                </div>
+            </Router>
+        );
+    }
+}
+render(<App></App>, window.root);
